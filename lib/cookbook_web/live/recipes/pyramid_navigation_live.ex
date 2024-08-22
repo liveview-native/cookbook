@@ -17,4 +17,14 @@ defmodule CookbookWeb.PyramidNavigationLive do
   def handle_event("done", _params, socket) do
     {:noreply, assign(socket, selection: nil)}
   end
+
+  def handle_event("previous", _params, %{ assigns: %{ selection: selection } } = socket) when selection > 0 do
+    {:noreply, assign(socket, :selection, selection - 1)}
+  end
+  def handle_event("previous", _params, socket), do: {:noreply, socket}
+
+  def handle_event("next", _params, %{ assigns: %{ selection: selection } } = socket) when selection < 25 do
+    {:noreply, assign(socket, :selection, selection + 1)}
+  end
+  def handle_event("next", _params, socket), do: {:noreply, socket}
 end
