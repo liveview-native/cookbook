@@ -10,7 +10,7 @@ kill_signal = 'SIGTERM'
 [build]
 
 [env]
-  PHX_HOST = 'cookbook-proud-tree-5767.fly.dev'
+  PHX_HOST = 'cookbook.liveviewnative.dev'
   PORT = '8080'
 
 [http_service]
