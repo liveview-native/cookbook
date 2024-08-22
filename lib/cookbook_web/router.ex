@@ -30,6 +30,11 @@ defmodule CookbookWeb.Router do
         icon: "square.stack.fill",
         description: "Auto-sized cards that snap when scrolling"
       }
+      live "/charts", ChartsLive, metadata: %{
+        title: "Charts",
+        icon: "chart.xyaxis.line",
+        description: "Swift Charts addon library"
+      }
       live "/drill-down-navigation", CardRowLive, metadata: %{
         title: "Drill-Down Navigation",
         icon: "list.bullet.indent",
@@ -44,6 +49,11 @@ defmodule CookbookWeb.Router do
         title: "Hub & Spoke Navigation",
         icon: "arrow.up.left.and.down.right.and.arrow.up.right.and.down.left",
         description: "Navigation method that navigates to and from independent pages"
+      }
+      live "/maps", MapsLive, metadata: %{
+        title: "Maps",
+        icon: "mappin.and.ellipse",
+        description: "MapKit addon library"
       }
       live "/message-thread", MessageThreadLive, metadata: %{
         title: "Message Thread",
@@ -74,6 +84,11 @@ defmodule CookbookWeb.Router do
         title: "Tabs",
         icon: "rectangle.split.3x1.fill",
         description: "Navigation method that uses a system tab bar"
+      }
+      live "/video", VideoLive, metadata: %{
+        title: "Video",
+        icon: "play.rectangle.fill",
+        description: "AVKit addon library for video playback"
       }
     end
   end
