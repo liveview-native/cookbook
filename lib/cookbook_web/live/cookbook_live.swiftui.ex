@@ -48,20 +48,24 @@ defmodule CookbookWeb.CookbookLive.SwiftUI do
         </ScrollView>
       </Section>
       <Section>
-        <Menu template="header">
-          <Label template="label" systemImage={if @selected_category == nil, do: "line.3.horizontal.decrease.circle", else: "line.3.horizontal.decrease.circle.fill"}>
-            <%= @selected_category || "All Recipes" %>
-          </Label>
+        <HStack template="header">
+          <Text>Recipes</Text>
+          <Spacer />
+          <Menu>
+            <Label template="label" systemImage={if @selected_category == nil, do: "line.3.horizontal.decrease.circle", else: "line.3.horizontal.decrease.circle.fill"}>
+              <%= @selected_category || "All" %>
+            </Label>
 
-          <Button phx-click="clear-filter">All Recipes</Button>
-          <Button
-            :for={category <- @categories}
-            phx-click="filter"
-            phx-value-category={category}
-          >
-            <%= category %>
-          </Button>
-        </Menu>
+            <Button phx-click="clear-filter">All</Button>
+            <Button
+              :for={category <- @categories}
+              phx-click="filter"
+              phx-value-category={category}
+            >
+              <%= category %>
+            </Button>
+          </Menu>
+        </HStack>
         <.link
           :for={recipe <- @recipes}
           navigate={recipe.path}
