@@ -1,7 +1,9 @@
 defmodule CookbookWeb.CardRowLive.SwiftUI do
   use CookbookNative, [:render_component, format: :swiftui]
 
-  def render(assigns) do
+  def render(assigns, interface) do
+    target = Map.get(interface, "target", "ios")
+    assigns = assign(assigns, :target, target)
     ~LVN"""
     <ScrollView style='navigationTitle("Card Row")'>
       <ScrollView
@@ -12,7 +14,7 @@ defmodule CookbookWeb.CardRowLive.SwiftUI do
           "scrollIndicators(.hidden)"
         ]}
       >
-        <LazyHStack style="scrollTargetLayout()">
+        <LazyHStack style="padding(.top); scrollTargetLayout()">
           <VStack
             :for={{hint, i} <- Enum.with_index([
               "The ScrollView uses `scrollTargetBehavior(.viewAligned)` to snap to each card",
@@ -36,11 +38,12 @@ defmodule CookbookWeb.CardRowLive.SwiftUI do
               style={[
                 ~s[foregroundStyle(Color(hue: attr("hue"), saturation: 1, brightness: 1))],
                 "aspectRatio(1.777, contentMode: .fill)",
-                "containerRelativeFrame(.horizontal)",
+                ~s[containerRelativeFrame(.horizontal, count: attr("count"), span: 1, spacing: 8)],
                 "overlay(alignment: .bottomLeading, content: :description)",
                 "clipShape(.rect(cornerRadius: 8, style: .continuous))"
               ]}
               hue={i / 10}
+              count={if @target == "ios", do: 1, else: 3}
             >
               <Text template="description" style="font(.caption); foregroundStyle(.white); multilineTextAlignment(.leading); frame(maxWidth: .infinity, alignment: .leading); padding(8); background(.linearGradient(colors: [.black.opacity(0), .black.opacity(0.5)], startPoint: .top, endPoint: .bottom))">
                 <%= hint %>
