@@ -61,10 +61,22 @@ defmodule CookbookWeb.Router do
         description: "MapKit addon library",
         category: "Addons"
       }
+      live "/media-overview", MediaOverviewLive, metadata: %{
+        title: "Media Overview",
+        icon: "play.square.stack",
+        description: "Apple Music/Podcasts-styled album overview",
+        category: "UI"
+      }
       live "/message-thread", MessageThreadLive, metadata: %{
         title: "Message Thread",
         icon: "message.fill",
         description: "A list of message bubbles that starts at the bottom",
+        category: "UI"
+      }
+      live "/onboarding", OnboardingLive, metadata: %{
+        title: "Onboarding",
+        icon: "list.star",
+        description: "A list of features available in the app",
         category: "UI"
       }
       live "/playback-bar", PlaybackBarLive, metadata: %{
