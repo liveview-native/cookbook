@@ -91,6 +91,12 @@ defmodule CookbookWeb.Router do
         description: "Navigation method that allows navigation between sibling pages",
         category: "Navigation"
       }
+      live "/scroll-automation", ScrollAutomationLive, metadata: %{
+        title: "Scroll Automation",
+        icon: "arrow.up.and.down.text.horizontal",
+        description: "Programatically change the scroll position",
+        category: "UI"
+      }
       live "/search", SearchLive, metadata: %{
         title: "Search",
         icon: "magnifyingglass",
