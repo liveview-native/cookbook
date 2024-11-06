@@ -73,6 +73,12 @@ defmodule CookbookWeb.Router do
         description: "A list of message bubbles that starts at the bottom",
         category: "UI"
       }
+      live "/modals", ModalsLive, metadata: %{
+        title: "Modals",
+        icon: "macwindow.on.rectangle",
+        description: "Various modal options in SwiftUI",
+        category: "Navigation"
+      }
       live "/onboarding", OnboardingLive, metadata: %{
         title: "Onboarding",
         icon: "list.star",
