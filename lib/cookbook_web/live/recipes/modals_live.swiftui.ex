@@ -4,7 +4,7 @@ defmodule CookbookWeb.ModalsLive.SwiftUI do
   def render(assigns) do
     ~LVN"""
     <Group style='background(content: :modals); navigationTitle("Modals");'>
-      <.simple_form for={@form} id="type" phx-submit="open">
+      <.simple_form for={@form} id="type" phx-submit="open" phx-change="form-changed">
         <.input
           type="Picker"
           field={@form[:type]}
@@ -17,6 +17,12 @@ defmodule CookbookWeb.ModalsLive.SwiftUI do
             {"Inspector", "inspector"},
           ]}
           label="Modal Type"
+        />
+        <.input
+          type="Toggle"
+          field={@form[:detents]}
+          label="Detents"
+          :if={@form[:type].value == "sheet"}
         />
         <%!-- the popover is attached to the "Open" button --%>
         <Group
@@ -39,7 +45,19 @@ defmodule CookbookWeb.ModalsLive.SwiftUI do
           presented={@modal_type == "sheet"}
           phx-change="presentation-changed"
         >
-          <Text template="content">Sheet content</Text>
+          <Text
+            template="content"
+            :if={not @form[:detents].value}
+          >
+            Sheet content
+          </Text>
+          <Text
+            template="content"
+            :if={@form[:detents].value}
+            style="presentationDetents([.medium, .large]);"
+          >
+            Sheet content with detents
+          </Text>
         </VStack>
 
         <VStack
