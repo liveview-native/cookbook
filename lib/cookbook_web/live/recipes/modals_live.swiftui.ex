@@ -18,12 +18,41 @@ defmodule CookbookWeb.ModalsLive.SwiftUI do
           ]}
           label="Modal Type"
         />
-        <.input
-          type="Toggle"
-          field={@form[:detents]}
-          label="Detents"
-          :if={@form[:type].value == "sheet"}
-        />
+        <Section :if={@form[:type].value == "sheet"}>
+          <Text template="header">Sheet Customization</Text>
+          <.input
+            type="Toggle"
+            field={@form[:detents]}
+            label="Detents"
+          />
+          <.input
+            type="Toggle"
+            field={@form[:drag_indicator]}
+            label="Drag Indicator"
+          />
+          <.input
+            type="Picker"
+            field={@form[:background]}
+            options={[
+              {"Unspecified", ""},
+              {"Red", "system-red"},
+              {"Green", "system-green"},
+              {"Blue", "system-blue"}
+            ]}
+            label="Background"
+          />
+          <.input
+            type="Picker"
+            field={@form[:corner_radius]}
+            options={[
+              {"Unspecified", ""},
+              {"None", "0"},
+              {"Medium", "50"},
+              {"Large", "100"}
+            ]}
+            label="Corner Radius"
+          />
+        </Section>
         <%!-- the popover is attached to the "Open" button --%>
         <Group
           style='popover(isPresented: attr("presented"), content: :content);'
@@ -45,19 +74,15 @@ defmodule CookbookWeb.ModalsLive.SwiftUI do
           presented={@modal_type == "sheet"}
           phx-change="presentation-changed"
         >
-          <Text
+          <Group
             template="content"
-            :if={not @form[:detents].value}
           >
             Sheet content
-          </Text>
-          <Text
-            template="content"
-            :if={@form[:detents].value}
-            style="presentationDetents([.medium, .large]);"
-          >
-            Sheet content with detents
-          </Text>
+            <VStack :if={@form[:detents].value} style="presentationDetents([.medium, .large]);"></VStack>
+            <VStack style='presentationDragIndicator(attr("visibility"));' visibility={if @form[:drag_indicator].value, do: "visible", else: "hidden"}></VStack>
+            <VStack :if={@form[:background].value != ""} style='presentationBackground(attr("background"));' background={@form[:background].value}></VStack>
+            <VStack :if={@form[:corner_radius].value != ""} style='presentationCornerRadius(attr("radius"));' radius={@form[:corner_radius].value}></VStack>
+          </Group>
         </VStack>
 
         <VStack

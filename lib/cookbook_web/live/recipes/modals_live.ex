@@ -5,7 +5,13 @@ defmodule CookbookWeb.ModalsLive do
   def mount(_params, _session, socket) do
     {:ok, socket
       |> assign(:modal_type, nil)
-      |> assign(:form, to_form(%{ "type" => "sheet", "detents" => false }))}
+      |> assign(:form, to_form(%{
+        "type" => "sheet",
+        "detents" => false,
+        "drag_indicator" => false,
+        "background" => "",
+        "corner_radius" => "",
+      }))}
   end
 
   def render(assigns) do
@@ -27,10 +33,11 @@ defmodule CookbookWeb.ModalsLive do
     {:noreply, assign(socket, :modal_type, nil)}
   end
 
-  defp cast_form(%{ "type" => type, "detents" => detents }) do
-    to_form(%{
-      "type" => type,
-      "detents" => detents == "true"
-    })
+  defp cast_form(%{ "detents" => detents, "drag_indicator" => drag_indicator } = params) do
+    to_form(
+      params
+        |> Map.put("detents", detents == "true")
+        |> Map.put("drag_indicator", drag_indicator == "true")
+    )
   end
 end
