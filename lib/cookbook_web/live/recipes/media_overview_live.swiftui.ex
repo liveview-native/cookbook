@@ -7,12 +7,12 @@ defmodule CookbookWeb.MediaOverviewLive.SwiftUI do
       <%!-- back button --%>
       <%!-- TODO: add action to go back on button press --%>
       <ToolbarItem template="toolbar" placement="topBarLeading">
-        <.button style="buttonStyle(.bordereless); tint(.primary);">
+        <.link navigate="/" style="buttonStyle(.bordereless); tint(.primary);">
           <Image
             systemName="chevron.backward"
             style="font(.caption); bold(); frame(width: 28, height: 28); background(.bar, in: .circle);"
           />
-        </.button>
+        </.link>
       </ToolbarItem>
       <ToolbarItem template="toolbar" placement="topBarTrailing">
         <.button style="buttonStyle(.bordereless); tint(.primary);">
