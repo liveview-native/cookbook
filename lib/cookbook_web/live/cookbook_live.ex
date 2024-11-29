@@ -5,7 +5,7 @@ defmodule CookbookWeb.CookbookLive do
 
   @featured_recipes ["search", "card-row", "sectioned-grid", "gesture"]
 
-  def handle_params(params, uri, socket) do
+  def handle_params(_params, uri, socket) do
     uri = URI.parse(uri) |> Map.put(:query, nil) |> URI.to_string()
 
     {:ok, qr} =
@@ -21,18 +21,20 @@ defmodule CookbookWeb.CookbookLive do
   end
 
   def mount(_params, _session, socket) do
-    all_recipes = recipes(nil)
+    all_recipes = recipes("All", "")
     categorized_recipes = Enum.group_by(all_recipes, & &1.metadata.category)
 
-    categories =
-      categorized_recipes
+    categories = categorized_recipes
       |> Map.keys()
       |> Enum.sort()
+    categories = ["All" | categories]
 
     {:ok,
      socket
      |> assign(:recipes, all_recipes)
-     |> assign(:selected_category, nil)
+     |> assign(:selected_category, "All")
+     |> assign(:query, "")
+     |> assign(:scope, "")
      |> assign(:categories, categories)
      |> assign(
        :featured_recipes,
@@ -40,27 +42,31 @@ defmodule CookbookWeb.CookbookLive do
      )}
   end
 
-  def handle_event("clear-filter", _params, socket) do
-    handle_event("filter", %{"category" => nil}, socket)
-  end
+  # def handle_event("clear-filter", _params, socket) do
+  #   handle_event("filter", %{"category" => nil}, socket)
+  # end
 
   def handle_event("filter", %{"category" => category}, socket) do
     {:noreply,
      socket
      |> assign(:selected_category, category)
-     |> assign(:recipes, recipes(category))}
+     |> assign(:recipes, recipes(category, socket.assigns.query))}
   end
 
-  def recipes(nil) do
-    Phoenix.Router.routes(CookbookWeb.Router)
-    |> Enum.filter(&String.starts_with?(&1.path, "/recipes/"))
+  def handle_event("query-changed", %{ "query" => query }, socket) do
+    {:noreply,
+     socket
+     |> assign(:query, query)
+     |> assign(:recipes, recipes(socket.assigns.selected_category, query))}
   end
 
-  def recipes(category) do
+  def recipes(category, query) do
+    query = String.downcase(query)
     Phoenix.Router.routes(CookbookWeb.Router)
     |> Enum.filter(
-      &(String.starts_with?(&1.path, "/recipes/") and &1.metadata.category == category)
+      &(String.starts_with?(&1.path, "/recipes/") and (&1.metadata.category == category or category == "All"))
     )
+    |> Enum.filter(&(String.contains?(String.downcase(&1.metadata.title), query) or String.contains?(String.downcase(&1.metadata.description), query)))
   end
 
   def render(assigns) do
