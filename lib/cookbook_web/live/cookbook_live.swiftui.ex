@@ -70,6 +70,11 @@ defmodule CookbookWeb.CookbookLive.SwiftUI do
           :for={recipe <- @recipes}
           navigate={recipe.path}
         >
+          <ProgressView
+            template="destination"
+            style='navigationTitle(attr("title"))'
+            title={recipe.metadata.title}
+          />
           <Label>
             <VStack alignment="leading" template="title">
               <Text><%= recipe.metadata.title %></Text>
