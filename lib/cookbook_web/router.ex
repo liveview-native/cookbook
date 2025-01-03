@@ -22,7 +22,7 @@ defmodule CookbookWeb.Router do
   scope "/", CookbookWeb do
     pipe_through :browser
 
-    live "/", FileUploadLive
+    live "/", MapsLive
     scope "/recipes" do
       live "/card-row", CardRowLive, metadata: %{
         title: "Card Row",
