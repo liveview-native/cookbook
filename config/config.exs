@@ -72,7 +72,8 @@ config :live_view_native_stylesheet,
   content: [
     swiftui: [
       "lib/**/swiftui/*",
-      "lib/**/*swiftui*"
+      "lib/**/*swiftui*",
+      {:live_view_native_swiftui, "lib/**/swiftui/*"}
     ]
   ],
   output: "priv/static/assets"

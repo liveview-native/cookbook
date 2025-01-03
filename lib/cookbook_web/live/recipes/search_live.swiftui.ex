@@ -3,7 +3,7 @@ defmodule CookbookWeb.SearchLive.SwiftUI do
 
   def render(assigns) do
     ~LVN"""
-    <List
+    <VStack
       style={[
         ~s[navigationTitle("Search")],
         ~s[searchable(text: attr("searchText"), prompt: "Search for something...")],
@@ -13,8 +13,18 @@ defmodule CookbookWeb.SearchLive.SwiftUI do
       phx-change="search-changed"
       phx-debounce={250}
     >
-      <Text><%= @entered_search %></Text>
-    </List>
+      <LabeledContent :if={@entered_search != ""} style="padding();">
+        <Text template="label" style="bold();">Entered Search</Text>
+        <%= @entered_search %>
+      </LabeledContent>
+      <ContentUnavailableView :if={@entered_search == ""}>
+        <Label systemImage="magnifyingglass">
+          No Results
+        </Label>
+        <Text template="description">Search in the top bar.</Text>
+        <Text :interface-target="macos" template="description">Press enter to perform the search.</Text>
+      </ContentUnavailableView>
+    </VStack>
     """
   end
 end

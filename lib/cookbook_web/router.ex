@@ -22,8 +22,7 @@ defmodule CookbookWeb.Router do
   scope "/", CookbookWeb do
     pipe_through :browser
 
-    live "/", CookbookLive
-
+    live "/", MapsLive
     scope "/recipes" do
       live "/card-row", CardRowLive, metadata: %{
         title: "Card Row",
@@ -42,6 +41,12 @@ defmodule CookbookWeb.Router do
         icon: "list.bullet.indent",
         description: "Navigation method that navigates to nested pages",
         category: "Navigation"
+      }
+      live "/file-upload", FileUploadLive, metadata: %{
+        title: "File Upload",
+        icon: "folder",
+        description: "Upload files with the fileImporter modifier",
+        category: "UI"
       }
       live "/gesture", GestureLive, metadata: %{
         title: "Gesture",

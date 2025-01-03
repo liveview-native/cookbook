@@ -35,7 +35,7 @@ defmodule Cookbook.MixProject do
       {:phoenix, "~> 1.7.11"},
       {:phoenix_html, "~> 4.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.20.2"},
+      {:phoenix_live_view, "~> 1.0.1"},
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.8.3"},
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
@@ -53,10 +53,12 @@ defmodule Cookbook.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.2"},
-      {:live_view_native, "~> 0.3.0"},
-      {:live_view_native_stylesheet, "~> 0.3.0"},
-      {:live_view_native_swiftui, "~> 0.3.0"},
-      {:live_view_native_live_form, "~> 0.3.0"},
+
+      {:live_view_native, "~> 0.4.0-rc.0"},
+      {:live_view_native_stylesheet, "~> 0.3.2"},
+      {:live_view_native_swiftui, "~> 0.4.0-rc.0"},
+      {:live_view_native_live_form, "~> 0.4.0-rc.0"},
+
       {:qr_code, "~> 3.1.0"}
     ]
   end
