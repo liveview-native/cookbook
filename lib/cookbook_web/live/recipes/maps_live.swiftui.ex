@@ -31,7 +31,7 @@ defmodule CookbookWeb.MapsLive.SwiftUI do
     """
   end
 
-  defp map(assigns) do
+  defp map(assigns, _interface) do
     ~LVN"""
     <Map
       style={[
@@ -52,7 +52,7 @@ defmodule CookbookWeb.MapsLive.SwiftUI do
     """
   end
 
-  defp look_around(assigns) do
+  defp look_around(assigns, _interface) do
     ~LVN"""
     <.button
       phx-click="look-around"

@@ -35,7 +35,7 @@ defmodule CookbookWeb.FileUploadLive.SwiftUI do
     """
   end
 
-  defp upload_form(assigns) do
+  defp upload_form(assigns, _interface) do
     ~LVN"""
     <LiveForm id="upload-form" phx-submit="save" phx-change="validate">
       <.button phx-click="toggle-file-picker" style="background(content: :importer);">
@@ -56,7 +56,7 @@ defmodule CookbookWeb.FileUploadLive.SwiftUI do
     """
   end
 
-  defp upload_entries(assigns) do
+  defp upload_entries(assigns, _interface) do
     ~LVN"""
     <%!-- use phx-drop-target with the upload ref to enable file drag and drop --%>
     <Section phx-drop-target={@uploads.avatar.ref}>
@@ -102,7 +102,7 @@ defmodule CookbookWeb.FileUploadLive.SwiftUI do
     """
   end
 
-  defp latest_uploads(assigns) do
+  defp latest_uploads(assigns, _interface) do
     ~LVN"""
     <Section>
       <Text template="header">Latest Upload</Text>

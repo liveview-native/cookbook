@@ -90,7 +90,7 @@ defmodule CookbookWeb.CookbookLive.SwiftUI do
 
   attr :recipe, :any
   attr :hue, :float
-  def featured_recipe(assigns) do
+  def featured_recipe(assigns, _interface) do
     ~LVN"""
     <.link navigate={@recipe.path} style="buttonStyle(.plain);">
       <VStack

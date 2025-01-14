@@ -41,7 +41,7 @@ defmodule CookbookWeb.VideoLive.SwiftUI do
     """
   end
 
-  defp video(assigns) do
+  defp video(assigns, _interface) do
     ~LVN"""
     <ScrollView>
       <VideoPlayer
@@ -78,7 +78,7 @@ defmodule CookbookWeb.VideoLive.SwiftUI do
   end
 
   attr :info, :any
-  def overlay(assigns) do
+  def overlay(assigns, _interface) do
     ~LVN"""
     <VStack
       alignment="leading"
