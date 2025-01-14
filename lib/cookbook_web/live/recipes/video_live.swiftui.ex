@@ -1,7 +1,47 @@
 defmodule CookbookWeb.VideoLive.SwiftUI do
   use CookbookNative, [:render_component, format: :swiftui]
 
-  def render(assigns, _interface) do
+  def render(assigns, interface) do
+    dbg interface
+    ~LVN"""
+    <VideoPlayer
+      :interface-target="tvos"
+      url={@video}
+      autoplay
+      style="ignoresSafeArea();"
+      phx-change="video-changed"
+      phx-debounce={1000}
+    >
+      <VStack
+        style={[
+          ~s[animation(.default, value: attr("value"))],
+          "frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)",
+        ]}
+        value={@info || ""}
+      >
+        <.overlay :if={@info} info={@info} />
+      </VStack>
+    </VideoPlayer>
+
+    <Group :interface-target="ios">
+      <.video video={@video} title={@title} author={@author} info={@info} description={@description} />
+    </Group>
+
+    <Group :interface-target="ipados">
+      <.video video={@video} title={@title} author={@author} info={@info} description={@description} />
+    </Group>
+
+    <Group :interface-target="visionos">
+      <.video video={@video} title={@title} author={@author} info={@info} description={@description} />
+    </Group>
+
+    <Group :interface-target="macos">
+      <.video video={@video} title={@title} author={@author} info={@info} description={@description} />
+    </Group>
+    """
+  end
+
+  defp video(assigns) do
     ~LVN"""
     <ScrollView>
       <VideoPlayer
@@ -44,7 +84,7 @@ defmodule CookbookWeb.VideoLive.SwiftUI do
       alignment="leading"
       style={[
         "padding()",
-        "background(.bar, in: .rect(cornerRadius: 8))",
+        "background(.ultraThinMaterial, in: .rect(cornerRadius: 8))",
         "padding()"
       ]}
     >
