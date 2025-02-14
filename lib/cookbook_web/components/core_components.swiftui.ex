@@ -80,7 +80,7 @@ defmodule CookbookWeb.CoreComponents.SwiftUI do
 
   slot :inner_block
 
-  def input(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
+  def input(%{field: %Phoenix.HTML.FormField{} = field} = assigns, _interface) do
     assigns
     |> assign(field: nil, id: assigns.id || field.id)
     |> assign(:errors, Enum.map(field.errors, &translate_error(&1)))
@@ -229,7 +229,7 @@ defmodule CookbookWeb.CoreComponents.SwiftUI do
   @doc type: :component
   slot :inner_block, required: true
 
-  def error(assigns) do
+  def error(assigns, _interface) do
     ~LVN"""
     <Group style="font(.caption); foregroundStyle(.red)">
       <%= render_slot(@inner_block) %>
@@ -248,7 +248,7 @@ defmodule CookbookWeb.CoreComponents.SwiftUI do
   slot :subtitle
   slot :actions
 
-  def header(assigns) do
+  def header(assigns, _interface) do
     ~LVN"""
     <VStack style={[
       "navigationTitle(:title)",
@@ -290,7 +290,7 @@ defmodule CookbookWeb.CoreComponents.SwiftUI do
   attr :on_cancel, :string, default: nil
   slot :inner_block, required: true
 
-  def modal(assigns) do
+  def modal(assigns, _interface) do
     ~LVN"""
     <VStack
       id={@id}
@@ -322,7 +322,7 @@ defmodule CookbookWeb.CoreComponents.SwiftUI do
 
   slot :inner_block, doc: "the optional inner block that renders the flash message"
 
-  def flash(assigns) do
+  def flash(assigns, _interface) do
     assigns = assign_new(assigns, :id, fn -> "flash-#{assigns.kind}" end)
 
     ~LVN"""
@@ -354,7 +354,7 @@ defmodule CookbookWeb.CoreComponents.SwiftUI do
   attr :flash, :map, required: true, doc: "the map of flash messages"
   attr :id, :string, default: "flash-group", doc: "the optional id of flash container"
 
-  def flash_group(assigns) do
+  def flash_group(assigns, _interface) do
     ~LVN"""
     <Group id={@id}>
       <.flash kind={:info} title={"Success!"} flash={@flash} />
@@ -390,7 +390,7 @@ defmodule CookbookWeb.CoreComponents.SwiftUI do
   slot :inner_block, required: true
   slot :actions, doc: "the slot for form actions, such as a submit button"
 
-  def simple_form(assigns) do
+  def simple_form(assigns, _interface) do
     ~LVN"""
     <.form :let={f} for={@for} as={@as} {@rest}>
       <Form>
@@ -420,10 +420,10 @@ defmodule CookbookWeb.CoreComponents.SwiftUI do
 
   slot :inner_block, required: true
 
-  def button(%{ type: "submit" } = assigns) do
+  def button(%{ type: "submit" } = assigns, _interface) do
     ~LVN"""
     <Section>
-      <LiveSubmitButton style={[
+      <LiveButton type="submit" style={[
         "buttonStyle(.borderedProminent)",
         "controlSize(.large)",
         "listRowInsets(EdgeInsets())",
@@ -435,12 +435,12 @@ defmodule CookbookWeb.CoreComponents.SwiftUI do
         ]}>
           <%= render_slot(@inner_block) %>
         </Group>
-      </LiveSubmitButton>
+      </LiveButton>
     </Section>
     """
   end
 
-  def button(assigns) do
+  def button(assigns, _interface) do
     ~LVN"""
     <Button {@rest}>
       <%= render_slot(@inner_block) %>
@@ -474,7 +474,7 @@ defmodule CookbookWeb.CoreComponents.SwiftUI do
 
   slot :action, doc: "the slot for showing user actions in the last table column"
 
-  def table(assigns) do
+  def table(assigns, _interface) do
     ~LVN"""
     <Table id={@id}>
       <Group template="columns">
@@ -514,7 +514,7 @@ defmodule CookbookWeb.CoreComponents.SwiftUI do
     attr :title, :string, required: true
   end
 
-  def list(assigns) do
+  def list(assigns, _interface) do
     ~LVN"""
     <List>
       <LabeledContent :for={item <- @item}>
@@ -538,7 +538,7 @@ defmodule CookbookWeb.CoreComponents.SwiftUI do
   attr :name, :string, required: true
   attr :rest, :global
 
-  def icon(assigns) do
+  def icon(assigns, _interface) do
     ~LVN"""
     <Image systemName={@name} {@rest} />
     """
@@ -592,7 +592,7 @@ defmodule CookbookWeb.CoreComponents.SwiftUI do
     attr :style, :string
   end
 
-  def image(assigns) do
+  def image(assigns, _interface) do
     ~LVN"""
     <AsyncImage url={@url} {@rest}>
       <Group template="phase.empty" :if={@empty != []}>
@@ -604,13 +604,13 @@ defmodule CookbookWeb.CoreComponents.SwiftUI do
     """
   end
 
-  defp image_success(%{ slot: [%{ inner_block: nil }] } = assigns) do
+  defp image_success(%{ slot: [%{ inner_block: nil }] } = assigns, _interface) do
     ~LVN"""
     <AsyncImage image template="phase.success" :for={slot <- @slot} class={Map.get(slot, :class)} {%{ style: Map.get(slot, :style) }} />
     """
   end
 
-  defp image_success(assigns) do
+  defp image_success(assigns, _interface) do
     ~LVN"""
     <Group template="phase.success" :if={@slot != []}>
       <%= render_slot(@slot) %>
@@ -618,13 +618,13 @@ defmodule CookbookWeb.CoreComponents.SwiftUI do
     """
   end
 
-  defp image_failure(%{ slot: [%{ inner_block: nil }] } = assigns) do
+  defp image_failure(%{ slot: [%{ inner_block: nil }] } = assigns, _interface) do
     ~LVN"""
     <AsyncImage error template="phase.failure" :for={slot <- @slot} class={Map.get(slot, :class)} {%{ style: Map.get(slot, :style) }} />
     """
   end
 
-  defp image_failure(assigns) do
+  defp image_failure(assigns, _interface) do
     ~LVN"""
     <Group template="phase.failure" :if={@slot != []}>
       <%= render_slot(@slot) %>

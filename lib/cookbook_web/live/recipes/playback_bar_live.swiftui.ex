@@ -71,7 +71,7 @@ defmodule CookbookWeb.PlaybackBarLive.SwiftUI do
 
   ## Components
 
-  def song_list(assigns) do
+  def song_list(assigns, _interface) do
     ~LVN"""
     <List
       style={[
@@ -87,7 +87,7 @@ defmodule CookbookWeb.PlaybackBarLive.SwiftUI do
     """
   end
 
-  def expanded_player(assigns) do
+  def expanded_player(assigns, _interface) do
     ~LVN"""
     <VStack style={[
       "frame(minHeight: 200)",
@@ -127,7 +127,7 @@ defmodule CookbookWeb.PlaybackBarLive.SwiftUI do
     """
   end
 
-  def collapsed_player(assigns) do
+  def collapsed_player(assigns, _interface) do
     ~LVN"""
     <HStack>
       <RoundedRectangle

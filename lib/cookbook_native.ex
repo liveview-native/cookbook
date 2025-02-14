@@ -113,7 +113,7 @@ defmodule CookbookNative do
     quote do
       use LiveViewNative.Component, unquote(opts)
 
-      import LiveViewNative.Component, only: [csrf_token: 1]
+      import LiveViewNative.Component, only: [csrf_token: 2]
 
       unquote(helpers(opts[:format]))
     end
@@ -123,7 +123,7 @@ defmodule CookbookNative do
     gettext_quoted = quote do
       import CookbookWeb.Gettext
     end
-    
+
     plugin = LiveViewNative.fetch_plugin!(format)
 
     plugin_component_quoted = try do
@@ -159,7 +159,7 @@ defmodule CookbookNative do
         core_component_quoted,
         verified_routes()
       ]
-      
+
   end
 
   @doc """
