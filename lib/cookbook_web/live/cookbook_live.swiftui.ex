@@ -10,7 +10,8 @@ defmodule CookbookWeb.CookbookLive.SwiftUI do
       style={[
         "listStyle(.plain)",
         ~s[navigationTitle("Cookbook")],
-        "toolbar(content: :toolbar)"
+        "toolbar(content: :toolbar)",
+        "navigationBarBackButtonHidden(true);"
       ]}
     >
       <ToolbarItem template="toolbar">
