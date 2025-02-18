@@ -3,7 +3,7 @@ defmodule CookbookWeb.SearchLive do
   use CookbookNative, :live_view
 
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, search_text: "", entered_search: "Pull down to search")}
+    {:ok, assign(socket, search_text: "", entered_search: "")}
   end
 
   @spec handle_event(<<_::48, _::_*64>>, any(), any()) :: {:noreply, any()}

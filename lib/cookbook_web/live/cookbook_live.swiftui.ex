@@ -13,11 +13,11 @@ defmodule CookbookWeb.CookbookLive.SwiftUI do
         "toolbar(content: :toolbar)"
       ]}
     >
-      <ToolbarItem template="toolbar">
+      <Group template="toolbar">
         <.link href="https://github.com/liveview-native/cookbook" style="buttonStyle(.automatic);">
           <.icon name="info.circle" />
         </.link>
-      </ToolbarItem>
+      </Group>
       <Section style="listSectionSeparator(.hidden); listSectionSpacing(0);">
         <ScrollView
           axes="horizontal"
@@ -70,6 +70,12 @@ defmodule CookbookWeb.CookbookLive.SwiftUI do
           :for={recipe <- @recipes}
           navigate={recipe.path}
         >
+          <ProgressView
+            template="destination"
+            style="navigationTitle(:title)"
+          >
+            <Text template="title"><%= recipe.metadata.title %></Text>
+          </ProgressView>
           <Label>
             <VStack alignment="leading" template="title">
               <Text><%= recipe.metadata.title %></Text>
@@ -85,7 +91,7 @@ defmodule CookbookWeb.CookbookLive.SwiftUI do
 
   attr :recipe, :any
   attr :hue, :float
-  def featured_recipe(assigns) do
+  def featured_recipe(assigns, _interface) do
     ~LVN"""
     <.link navigate={@recipe.path} style="buttonStyle(.plain);">
       <VStack
