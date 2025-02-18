@@ -12,7 +12,9 @@ defmodule CookbookWeb.DrillDownNavigationLive.SwiftUI do
       >
         Item <%= i %>
 
-        <VStack template="destination" style='navigationTitle(attr("title"))' title={i} />
+        <VStack template="destination" style="navigationTitle(:title)">
+          <Text template="title"><%= i %></Text>
+        </VStack>
       </.link>
     </List>
     """

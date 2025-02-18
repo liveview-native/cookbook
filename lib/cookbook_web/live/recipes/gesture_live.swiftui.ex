@@ -25,7 +25,7 @@ defmodule CookbookWeb.GestureLive.SwiftUI do
           style={[
             "fill(.green)",
             "frame(width: 100, height: 100)",
-            "scaleEffect(gesture_state(:magnify, .magnification, defaultValue: 1), anchor: gesture_state(:magnify, .startAnchor, defaultValue: .center))",
+            "scaleEffect(gesture_state(:magnify, .magnification, defaultValue: 1), anchor: UnitPoint(x: gesture_state(:magnify, .startAnchor.x, defaultValue: 0.5), y: gesture_state(:magnify, .startAnchor.y, defaultValue: 0.5)))",
             "animation(.bouncy, value: gesture_state(:magnify, .magnification))",
             "simultaneousGesture(MagnifyGesture().updating(:magnify))",
             "frame(maxHeight: .infinity)"
@@ -39,7 +39,7 @@ defmodule CookbookWeb.GestureLive.SwiftUI do
           style={[
             "fill(.blue)",
             "frame(width: 100, height: 100)",
-            "rotationEffect(gesture_state(:rotate, .rotation, defaultValue: .zero), anchor: gesture_state(:rotate, .startAnchor, defaultValue: .center))",
+            "rotationEffect(.degrees(gesture_state(:rotate, .rotation.degrees, defaultValue: 0)), anchor: UnitPoint(x: gesture_state(:magnify, .startAnchor.x, defaultValue: 0.5), y: gesture_state(:magnify, .startAnchor.y, defaultValue: 0.5)))",
             "animation(.bouncy, value: gesture_state(:rotate, .rotation.radians))",
             "simultaneousGesture(RotateGesture().updating(:rotate))",
             "frame(maxHeight: .infinity)"
