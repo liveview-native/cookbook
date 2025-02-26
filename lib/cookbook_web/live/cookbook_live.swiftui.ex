@@ -13,16 +13,16 @@ defmodule CookbookWeb.CookbookLive.SwiftUI do
         "toolbar(content: :toolbar)"
       ]}
     >
-      <Group template="toolbar">
+      <ToolbarItem template="toolbar">
         <.link href="https://github.com/liveview-native/cookbook" style="buttonStyle(.automatic);">
           <.icon name="info.circle" />
         </.link>
-      </Group>
+      </ToolbarItem>
       <Section style="listSectionSeparator(.hidden); listSectionSpacing(0);">
         <ScrollView
           axes="horizontal"
           style={[
-            "scrollTargetBehavior(.viewAligned)",
+            "scrollTargetBehavior(.viewAligned(limitBehavior: .alwaysByOne))",
             "scrollIndicators(.hidden)",
             "safeAreaPadding(.horizontal, 16)",
             "listRowInsets(EdgeInsets())",

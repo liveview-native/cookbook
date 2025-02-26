@@ -24,7 +24,7 @@ defmodule CookbookWeb.SectionedGridLive.SwiftUI do
               Section <%= section %>
             </Text>
             <Rectangle
-              :for={i <- 1..50}
+              :for={i <- 1..40}
               style={[
                 ~s[foregroundStyle(Color(hue: attr("hue"), saturation: 1, brightness: 1))],
                 "aspectRatio(1, contentMode: .fill)"
