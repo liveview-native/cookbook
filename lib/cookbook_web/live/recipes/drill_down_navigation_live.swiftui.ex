@@ -11,6 +11,10 @@ defmodule CookbookWeb.DrillDownNavigationLive.SwiftUI do
         navigate={~p"/recipes/drill-down-navigation?index=#{i}"}
       >
         Item <%= i %>
+
+        <VStack template="destination" style="navigationTitle(:title)">
+          <Text template="title"><%= i %></Text>
+        </VStack>
       </.link>
     </List>
     """

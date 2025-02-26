@@ -3,7 +3,7 @@ defmodule CookbookWeb.MediaOverviewLive.SwiftUI do
 
   def render(assigns, _interface) do
     ~LVN"""
-    <List style="listStyle(.plain); ignoresSafeArea(edges: .top); toolbarBackground(.hidden, for: .navigationBar); navigationBarBackButtonHidden(true); toolbar(content: :toolbar)">
+    <List style="listStyle(.plain); ignoresSafeArea(edges: .top); toolbarBackgroundVisibility(.hidden, for: .navigationBar); navigationBarBackButtonHidden(true); toolbar(content: :toolbar)">
       <%!-- back button --%>
       <%!-- TODO: add action to go back on button press --%>
       <ToolbarItem template="toolbar" placement="topBarLeading">
@@ -51,7 +51,7 @@ defmodule CookbookWeb.MediaOverviewLive.SwiftUI do
           <%!-- background blur --%>
           <Rectangle
             template="background"
-            style="fill(.thinMaterial); mask(mask: :mask)"
+            style="fill(.thinMaterial); mask(:mask)"
           >
             <Rectangle
               template="mask"

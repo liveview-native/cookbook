@@ -37,7 +37,7 @@ defmodule CookbookWeb.OnboardingLive.SwiftUI do
   attr :description, :string
   attr :rest, :global
 
-  def feature(assigns) do
+  def feature(assigns, _interface) do
     ~LVN"""
     <GridRow>
       <Group style="foregroundStyle(.tint); font(.largeTitle); symbolRenderingMode(.hierarchical);">
