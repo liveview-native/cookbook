@@ -17,7 +17,9 @@ defmodule CookbookWeb.CookbookLive do
     {:noreply,
      socket
      |> assign(:qr, qr)
-     |> assign(:uri, uri)}
+     |> assign(:uri, uri)
+     |> assign(:dead, connected?(socket))
+     |> assign(:count, 0)}
   end
 
   def mount(_params, _session, socket) do

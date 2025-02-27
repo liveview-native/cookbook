@@ -33,7 +33,7 @@ defmodule CookbookWeb.PyramidNavigationLive.SwiftUI do
     """
   end
 
-  def item_grid(assigns) do
+  def item_grid(assigns, _interface) do
     ~LVN"""
     <LazyVGrid
       columns={[%{ size: %{ adaptive: %{ minimum: 100 } } }]}
@@ -58,7 +58,7 @@ defmodule CookbookWeb.PyramidNavigationLive.SwiftUI do
 
   attr :selection, :integer
   attr :target, :string
-  def detail_view(assigns) do
+  def detail_view(assigns, _interface) do
     ~LVN"""
     <TabView
       selection={@selection || 0}

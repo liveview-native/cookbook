@@ -22,7 +22,7 @@ defmodule CookbookWeb.CookbookLive.SwiftUI do
         <ScrollView
           axes="horizontal"
           style={[
-            "scrollTargetBehavior(.viewAligned)",
+            "scrollTargetBehavior(.viewAligned(limitBehavior: .alwaysByOne))",
             "scrollIndicators(.hidden)",
             "safeAreaPadding(.horizontal, 16)",
             "listRowInsets(EdgeInsets())",
@@ -70,6 +70,12 @@ defmodule CookbookWeb.CookbookLive.SwiftUI do
           :for={recipe <- @recipes}
           navigate={recipe.path}
         >
+          <ProgressView
+            template="destination"
+            style="navigationTitle(:title)"
+          >
+            <Text template="title"><%= recipe.metadata.title %></Text>
+          </ProgressView>
           <Label>
             <VStack alignment="leading" template="title">
               <Text><%= recipe.metadata.title %></Text>
@@ -85,7 +91,7 @@ defmodule CookbookWeb.CookbookLive.SwiftUI do
 
   attr :recipe, :any
   attr :hue, :float
-  def featured_recipe(assigns) do
+  def featured_recipe(assigns, _interface) do
     ~LVN"""
     <.link navigate={@recipe.path} style="buttonStyle(.plain);">
       <VStack

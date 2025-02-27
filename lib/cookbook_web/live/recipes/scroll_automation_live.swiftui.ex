@@ -6,7 +6,7 @@ defmodule CookbookWeb.ScrollAutomationLive.SwiftUI do
     <%!-- use the `scrollPosition` modifier to scroll to a specific ID --%>
     <ScrollView
       axes="vertical"
-      style='safeAreaPadding(); scrollPosition(id: attr("scroll-position"), anchor: .top); animation(.snappy, value: attr("scroll-position")); background(.linearGradient(colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing)); preferredColorScheme(.light);'
+      style='safeAreaPadding(); scrollPosition(attr("scroll-position"), anchor: .top); animation(.snappy, value: attr("scroll-position")); background(.linearGradient(colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing)); preferredColorScheme(.light);'
       scroll-position={if @user_interacted, do: "", else: "line-#{@scroll_position}"}
       phx-change="scroll-position-changed"
     >

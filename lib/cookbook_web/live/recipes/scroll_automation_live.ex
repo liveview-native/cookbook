@@ -32,7 +32,7 @@ defmodule CookbookWeb.ScrollAutomationLive do
     }
   end
 
-  def handle_event("scroll-position-changed", %{ "scroll-position" => nil }, socket) do
+  def handle_event("scroll-position-changed", %{ "scroll-position" => %{ "isPositionedByUser" => true } }, socket) do
     {:noreply, assign(socket, user_interacted: true)}
   end
 
