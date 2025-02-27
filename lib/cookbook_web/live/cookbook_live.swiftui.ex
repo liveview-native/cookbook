@@ -5,81 +5,93 @@ defmodule CookbookWeb.CookbookLive.SwiftUI do
     target = Map.get(interface, "target", "ios")
     assigns = assign(assigns, :target, target)
     ~LVN"""
-    <List
-      id="cookbook"
-      style={[
-        "listStyle(.plain)",
-        ~s[navigationTitle("Cookbook")],
-        "toolbar(content: :toolbar)"
-      ]}
+    <Group
+      style={[~s[searchScopes(attr("category"), activation: .automatic, scopes: :scopes)]]}
+      category={@selected_category}
+      phx-change="filter"
     >
-      <ToolbarItem template="toolbar">
-        <.link href="https://github.com/liveview-native/cookbook" style="buttonStyle(.automatic);">
-          <.icon name="info.circle" />
-        </.link>
-      </ToolbarItem>
-      <Section style="listSectionSeparator(.hidden); listSectionSpacing(0);">
-        <ScrollView
-          axes="horizontal"
-          style={[
-            "scrollTargetBehavior(.viewAligned)",
-            "scrollIndicators(.hidden)",
-            "safeAreaPadding(.horizontal, 16)",
-            "listRowInsets(EdgeInsets())",
-            "listRowSpacing(0)",
-            "listRowBackground(:none)",
-            "padding(.vertical, 8)"
-          ]}
-        >
-          <HStack style="scrollTargetLayout();">
-            <Group
-              style={[
-                ~s[containerRelativeFrame(.horizontal, count: attr("count"), span: 1, spacing: 16)]
-              ]}
-              count={if @target == "ios", do: 1, else: 3}
-            >
-              <.featured_recipe
-                :for={{recipe, index} <- Enum.with_index(@featured_recipes)}
-                recipe={recipe}
-                hue={index / length(@featured_recipes)}
-              />
-            </Group>
-          </HStack>
-        </ScrollView>
-      </Section>
-      <Section>
-        <HStack template="header">
-          <Text>Recipes</Text>
-          <Spacer />
-          <Menu>
-            <Label template="label" systemImage={if @selected_category == nil, do: "line.3.horizontal.decrease.circle", else: "line.3.horizontal.decrease.circle.fill"}>
-              <%= @selected_category || "All" %>
-            </Label>
+      <Text template="scopes" :for={category <- @categories} id={category}><%= category %></Text>
+      <List
+        id="cookbook"
+        style={[
+          "listStyle(.plain)",
+          ~s[navigationTitle("Cookbook")],
+          "toolbar(content: :toolbar)",
+          ~s[searchable(text: attr("query"))]
+        ]}
+        query={@query}
+        scope={@scope}
+        phx-change="query-changed"
+        phx-debounce={100}
+      >
+        <ToolbarItem template="toolbar">
+          <.link href="https://github.com/liveview-native/cookbook" style="buttonStyle(.automatic);">
+            <.icon name="info.circle" />
+          </.link>
+        </ToolbarItem>
+        <Section style="listSectionSeparator(.hidden); listSectionSpacing(0);">
+          <ScrollView
+            axes="horizontal"
+            style={[
+              "scrollTargetBehavior(.viewAligned)",
+              "scrollIndicators(.hidden)",
+              "safeAreaPadding(.horizontal, 16)",
+              "listRowInsets(EdgeInsets())",
+              "listRowSpacing(0)",
+              "listRowBackground(:none)",
+              "padding(.vertical, 8)"
+            ]}
+          >
+            <HStack style="scrollTargetLayout();">
+              <Group
+                style={[
+                  ~s[containerRelativeFrame(.horizontal, count: attr("count"), span: 1, spacing: 16)]
+                ]}
+                count={if @target == "ios", do: 1, else: 3}
+              >
+                <.featured_recipe
+                  :for={{recipe, index} <- Enum.with_index(@featured_recipes)}
+                  recipe={recipe}
+                  hue={index / length(@featured_recipes)}
+                />
+              </Group>
+            </HStack>
+          </ScrollView>
+        </Section>
+        <Section>
+          <HStack template="header">
+            <Text>Recipes</Text>
+            <Spacer />
+            <Menu>
+              <Label template="label" systemImage={if @selected_category == nil, do: "line.3.horizontal.decrease.circle", else: "line.3.horizontal.decrease.circle.fill"}>
+                <%= @selected_category || "All" %>
+              </Label>
 
-            <Button phx-click="clear-filter">All</Button>
-            <Button
-              :for={category <- @categories}
-              phx-click="filter"
-              phx-value-category={category}
-            >
-              <%= category %>
-            </Button>
-          </Menu>
-        </HStack>
-        <.link
-          :for={recipe <- @recipes}
-          navigate={recipe.path}
-        >
-          <Label>
-            <VStack alignment="leading" template="title">
-              <Text><%= recipe.metadata.title %></Text>
-              <Text style="foregroundStyle(.secondary);"><%= recipe.metadata.description %></Text>
-            </VStack>
-            <Image template="icon" systemName={recipe.metadata.icon} />
-          </Label>
-        </.link>
-      </Section>
-    </List>
+              <%!-- <Button phx-click="clear-filter">All</Button> --%>
+              <Button
+                :for={category <- @categories}
+                phx-click="filter"
+                phx-value-category={category}
+              >
+                <%= category %>
+              </Button>
+            </Menu>
+          </HStack>
+          <.link
+            :for={recipe <- @recipes}
+            navigate={recipe.path}
+          >
+            <Label>
+              <VStack alignment="leading" template="title">
+                <Text><%= recipe.metadata.title %></Text>
+                <Text style="foregroundStyle(.secondary);"><%= recipe.metadata.description %></Text>
+              </VStack>
+              <Image template="icon" systemName={recipe.metadata.icon} />
+            </Label>
+          </.link>
+        </Section>
+      </List>
+    </Group>
     """
   end
 
